@@ -1,0 +1,10 @@
+# data type
+*.pdf
+*.docx
+*.pptx
+*.png
+*.jpg
+
+# directory 
+/document
+/image
