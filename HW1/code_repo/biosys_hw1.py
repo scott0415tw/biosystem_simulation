@@ -9,7 +9,7 @@ I = np.array([8.0, 3.0, 5.0, 6.5, 4.0, 2.5])
 E = np.array([0.0, 0.05, 0.10, 0.50, 1.75, 1.75])
 
 # =========================
-# Q1_(a) 線性回歸
+# Q1_(a) linear regression
 # =========================
 model_I = LinearRegression().fit(R, I)
 model_E = LinearRegression().fit(R, E)
@@ -25,9 +25,7 @@ print("Extinction : E(R) = {:.5f} + ({:.5f})R".format(a_E, b_E))
 
 
 
-# =========================
 # plot, I(R),  E(R)
-# =========================
 R_plot = np.linspace(0, 300, 100)
 
 I_fit = a_I + b_I * R_plot
@@ -43,10 +41,10 @@ plt.ylabel("Rate")
 plt.legend()
 plt.title("Immigration and Extinction (linear)")
 plt.show()
+
 #%%
 # =========================
 # Q1_(c) equilibrium
-# I(R) = E(R)
 # =========================
 
 R_star = (a_I - a_E) / (b_E - b_I)
@@ -81,7 +79,7 @@ print("ok")
 
 
 #%%
-
+# linear model simulate graph
 plt.figure()
 plt.plot(time, R0_case, label="Start from 0")
 plt.plot(time, R500_case, label="Start from 500")
@@ -125,6 +123,7 @@ print(f"I = {round(I0, 5)}*exp(-{round(a, 5)} R)")
 print(f"E = {round(b, 10)}*R^2") 
 
 # %%
+# new model plot, I(R),  E(R)
 R_plot = np.linspace(0, 250, 200)
 
 I_fit = (I0 * np.exp(-0.008 * R_plot))
@@ -167,26 +166,22 @@ def simulate_new(R0):
 R0_new= simulate_new(0)
 
 
-#%%
-plt.figure()
+#%% 
+# new model simulation graph
 
+plt.figure()
 plt.plot(time, R0_case, label="original_model")
 plt.plot(time, R0_new, label="new_model")
-
-# plt.plot(time, R500_case, label="Start from 500")
-# plt.axhline(250, linestyle='--', label="~250 species", color = "red")
 plt.axhline(R_star, linestyle='--', label="Equilibrium (original model)")
 plt.axhline(R_star, linestyle='--', label="Equilibrium (original model)")
+plt.title("Species Dynamics")
 plt.xlabel("Time")
 plt.ylabel("Species number")
 plt.legend()
-plt.title("Species Dynamics")
 plt.show()
 
-
-
 # %%
-
+# residual
 from sklearn.metrics import mean_squared_error
 
 # linear model
@@ -205,4 +200,3 @@ rmse_E2 = np.sqrt(mean_squared_error(E, E2_pred))
 
 print(f"Model 1 (Linear) - RMSE I: {rmse_I1:.4f}, RMSE E: {rmse_E1:.4f}")
 print(f"Model 2 (New)    - RMSE I: {rmse_I2:.4f}, RMSE E: {rmse_E2:.4f}")
-# %%
